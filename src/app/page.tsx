@@ -12,45 +12,24 @@ const redRose = Red_Rose({
 
 export default function Home() {
   return (
-    <div
-      className={`min-h-screen bg-gradient-to-b from-gray-100 to-gray-200 dark:from-gray-900 dark:to-gray-800 ${redRose.className}`}
-    >
+    <div className={`min-h-screen bg-linear-to-b from-gray-100 to-gray-200 dark:from-gray-900 dark:to-gray-800 ${redRose.className}`}>
       {/* Hero Section */}
-      <section className="relative overflow-hidden py-28 px-4 text-center bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-700 animate-fade-in">
+      <section className="relative overflow-hidden py-28 px-4 text-center bg-linear-to-b from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-700 animate-fade-in">
         {/* Animated Blobs */}
-        <svg
-          className="absolute left-[-10%] top-[-10%] w-[400px] h-[400px] opacity-30 blur-2xl animate-blob-slow pointer-events-none select-none"
-          viewBox="0 0 400 400"
-          fill="none"
-        >
+        <svg className="absolute left-[-10%] top-[-10%] w-100 h-100 opacity-30 blur-2xl animate-blob-slow pointer-events-none select-none" viewBox="0 0 400 400" fill="none">
           <ellipse cx="200" cy="200" rx="200" ry="200" fill="#a5b4fc" />
         </svg>
-        <svg
-          className="absolute right-[-10%] bottom-[-10%] w-[300px] h-[300px] opacity-20 blur-2xl animate-blob-fast pointer-events-none select-none"
-          viewBox="0 0 400 400"
-          fill="none"
-        >
+        <svg className="absolute right-[-10%] bottom-[-10%] w-75 h-75 opacity-20 blur-2xl animate-blob-fast pointer-events-none select-none" viewBox="0 0 400 400" fill="none">
           <ellipse cx="200" cy="200" rx="200" ry="200" fill="#f472b6" />
         </svg>
-        <Image
-          src="/3d-doc.png"
-          alt="Docochat AI"
-          width={120}
-          height={120}
-          className="mx-auto mb-6 drop-shadow-xl animate-fade-in"
-        />
+        <Image src="/3d-doc.png" alt="Docochat AI" width={120} height={120} className="mx-auto mb-6 drop-shadow-xl animate-fade-in" />
         <div className="max-w-5xl mx-auto">
-          <h1 className="text-8xl font-extrabold mb-6 text-gray-900 dark:text-gray-100 tracking-tight relative z-10 animate-glow">
-            Docochat AI
-          </h1>
-          <p className="text-2xl mb-12 text-gray-600 dark:text-gray-300 max-w-3xl mx-auto animate-fade-in">
-            Engage with your documents like never before. Upload, train, and converse with your files effortlessly.
-          </p>
+          <h1 className="text-8xl font-extrabold mb-6 text-gray-900 dark:text-gray-100 tracking-tight relative z-10 animate-glow">Docochat AI</h1>
+          <p className="text-2xl mb-12 text-gray-600 dark:text-gray-300 max-w-3xl mx-auto animate-fade-in">Engage with your documents like never before. Upload, train, and converse with your files effortlessly.</p>
           <Button
             asChild
             size="lg"
-            className="group bg-gray-900 hover:bg-gradient-to-r hover:from-indigo-600 hover:to-pink-500 text-white dark:bg-gray-100 dark:hover:bg-gradient-to-r dark:hover:from-indigo-300 dark:hover:to-pink-200 dark:text-gray-900 font-medium shadow-lg transition-all duration-75 focus:ring-4 focus:ring-indigo-300 dark:focus:ring-pink-200"
-          >
+            className="group bg-gray-900 hover:bg-linear-to-r hover:from-indigo-600 hover:to-pink-500 text-white dark:bg-gray-100 dark:hover:bg-linear-to-r dark:hover:from-indigo-300 dark:hover:to-pink-200 dark:text-gray-900 font-medium shadow-lg transition-all duration-75 focus:ring-4 focus:ring-indigo-300 dark:focus:ring-pink-200">
             <Link href="/train" prefetch={true} className="flex items-center">
               <MessageCircle className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform duration-75" />
               Get Started
@@ -59,7 +38,7 @@ export default function Home() {
         </div>
         {/* Scroll Down Indicator */}
         <div className="absolute left-1/2 -translate-x-1/2 bottom-8 flex flex-col items-center z-10">
-          <span className="block w-1.5 h-8 bg-gradient-to-b from-indigo-400 to-pink-400 rounded-full animate-bounce mb-2 opacity-80" />
+          <span className="block w-1.5 h-8 bg-linear-to-b from-indigo-400 to-pink-400 rounded-full animate-bounce mb-2 opacity-80" />
           <span className="text-xs text-gray-500 dark:text-gray-400 tracking-wide">Scroll</span>
         </div>
       </section>
@@ -67,9 +46,7 @@ export default function Home() {
       {/* Features Section */}
       <section className="py-24 px-4 bg-white dark:bg-gray-900 animate-fade-in ">
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-4xl font-semibold mb-16 text-center text-gray-900 dark:text-gray-100 tracking-tight animate-fade-in">
-            Why Choose Docochat AI?
-          </h2>
+          <h2 className="text-4xl font-semibold mb-16 text-center text-gray-900 dark:text-gray-100 tracking-tight animate-fade-in">Why Choose Docochat AI?</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
             {[
               {
@@ -95,19 +72,14 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 px-4 text-center bg-gradient-to-b from-gray-100 to-gray-200 dark:from-gray-900 dark:to-gray-800 animate-fade-in ">
+      <section className="py-24 px-4 text-center bg-linear-to-b from-gray-100 to-gray-200 dark:from-gray-900 dark:to-gray-800 animate-fade-in ">
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-4xl font-semibold mb-6 text-gray-900 dark:text-gray-100 tracking-tight animate-fade-in ">
-            Ready to Transform Your Documents?
-          </h2>
-          <p className="text-2xl mb-10 text-gray-600 dark:text-gray-300 animate-fade-in ">
-            Unlock 10 free credits and start your intelligent document journey today.
-          </p>
+          <h2 className="text-4xl font-semibold mb-6 text-gray-900 dark:text-gray-100 tracking-tight animate-fade-in ">Ready to Transform Your Documents?</h2>
+          <p className="text-2xl mb-10 text-gray-600 dark:text-gray-300 animate-fade-in ">Unlock 10 free credits and start your intelligent document journey today.</p>
           <Button
             asChild
             size="lg"
-            className="group bg-gray-900 hover:bg-gradient-to-r hover:from-indigo-600 hover:to-pink-500 text-white dark:bg-gray-100 dark:hover:bg-gradient-to-r dark:hover:from-indigo-300 dark:hover:to-pink-200 dark:text-gray-900 font-medium shadow-lg transition-all duration-75 focus:ring-4 focus:ring-indigo-300 dark:focus:ring-pink-200"
-          >
+            className="group bg-gray-900 hover:bg-linear-to-r hover:from-indigo-600 hover:to-pink-500 text-white dark:bg-gray-100 dark:hover:bg-gradient-to-r dark:hover:from-indigo-300 dark:hover:to-pink-200 dark:text-gray-900 font-medium shadow-lg transition-all duration-75 focus:ring-4 focus:ring-indigo-300 dark:focus:ring-pink-200">
             <Link href="/train" prefetch={true} className="flex items-center">
               Start Chatting Now
             </Link>

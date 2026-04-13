@@ -60,8 +60,7 @@ export default function ChatSidebarContent() {
       {userDetails ? (
         <div className="border border-gray-200 dark:border-gray-700 p-4 rounded-lg mt-4 bg-yellow-50 dark:bg-yellow-900">
           <p className="text-xs">
-            You have {userDetails.files_used} files used and {userDetails.files_available} files available for training
-            & chatting for free.
+            You have {userDetails.files_used} files used and {userDetails.files_available} files available for training & chatting for free.
           </p>
         </div>
       ) : (

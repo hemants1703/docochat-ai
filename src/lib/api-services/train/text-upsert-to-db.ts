@@ -5,12 +5,7 @@ import { embedChunkedText } from "./text-embedding-services";
 import { UserDetails } from "@/app/train/page";
 import { SupportedFileType, supportedFileTypes } from "@/lib/supportedFileTypes";
 
-export async function embedExtractedTextAndUpsertToSupabaseDB(
-  extractedText: string,
-  userId: UserDetails["id"],
-  receivedFile: File,
-  supabaseClient: SupabaseClient
-): Promise<{ success: boolean; message: string } | Error> {
+export async function embedExtractedTextAndUpsertToSupabaseDB(extractedText: string, userId: UserDetails["id"], receivedFile: File, supabaseClient: SupabaseClient): Promise<{ success: boolean; message: string } | Error> {
   if (!extractedText || extractedText.length === 0) {
     return new Error("Extracted text cannot be empty or whitespace.");
   }

@@ -2,10 +2,7 @@
 
 import type { TrainFormState } from "@/components/features/train/train-form";
 
-export async function trainDocument(
-  initialState: TrainFormState,
-  formData: FormData
-): Promise<TrainFormState> {
+export async function trainDocument(initialState: TrainFormState, formData: FormData): Promise<TrainFormState> {
   const file = formData.get("file") as File;
 
   if (!file) {
@@ -33,13 +30,10 @@ export async function trainDocument(
 
     formData.append("userDetails", userDetails);
 
-    const trainFile = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/document/train`,
-      {
-        method: "POST",
-        body: formData,
-      }
-    );
+    const trainFile = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/document/train`, {
+      method: "POST",
+      body: formData,
+    });
 
     if (!trainFile.ok) {
       throw new Error((await trainFile.json()).message);
@@ -58,9 +52,7 @@ export async function trainDocument(
     return {
       ...initialState,
       success: false,
-      error: new Error(
-        error instanceof Error ? error.message : "Error while training file"
-      ),
+      error: new Error(error instanceof Error ? error.message : "Error while training file"),
     };
   }
 

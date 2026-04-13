@@ -13,29 +13,23 @@ import { Readable } from "stream";
  * @returns A promise that resolves to the text extracted from the file.
  */
 
-export const extractTextFromTXTOrMD = async (
-  file: File
-): Promise<string | Error> => {
-  return new Promise(
-    (resolve: (text: string) => void, reject: (error: Error) => void) => {
-      const reader: FileReader = new FileReader();
+export const extractTextFromTXTOrMD = async (file: File): Promise<string | Error> => {
+  return new Promise((resolve: (text: string) => void, reject: (error: Error) => void) => {
+    const reader: FileReader = new FileReader();
 
-      reader.onload = (event: ProgressEvent<FileReader>) => {
-        if (event.target?.result) {
-          const text: string = event.target.result as string;
-          resolve(text.trim());
-        }
-      };
+    reader.onload = (event: ProgressEvent<FileReader>) => {
+      if (event.target?.result) {
+        const text: string = event.target.result as string;
+        resolve(text.trim());
+      }
+    };
 
-      reader.onerror = (event: ProgressEvent<FileReader>) => {
-        reject(
-          new Error(`Failed to read file: ${event.target?.error?.message}`)
-        );
-      };
+    reader.onerror = (event: ProgressEvent<FileReader>) => {
+      reject(new Error(`Failed to read file: ${event.target?.error?.message}`));
+    };
 
-      reader.readAsText(file);
-    }
-  );
+    reader.readAsText(file);
+  });
 };
 
 /**
@@ -47,22 +41,18 @@ export const extractTextFromTXTOrMD = async (
  * @returns A promise that resolves to the text extracted from the file.
  */
 
-export const extractTextFromRTF = async (
-  file: File
-): Promise<string | Error> => {
+export const extractTextFromRTF = async (file: File): Promise<string | Error> => {
   const rtfContent = await file.text();
 
-  return new Promise(
-    (resolve: (text: string) => void, reject: (error: Error) => void) => {
-      rtf2text.string(rtfContent, (err: Error | null, result: string) => {
-        if (err) {
-          reject(new Error(`Failed to parse RTF file: ${err.message}`));
-        } else {
-          resolve(result.trim());
-        }
-      });
-    }
-  );
+  return new Promise((resolve: (text: string) => void, reject: (error: Error) => void) => {
+    rtf2text.string(rtfContent, (err: Error | null, result: string) => {
+      if (err) {
+        reject(new Error(`Failed to parse RTF file: ${err.message}`));
+      } else {
+        resolve(result.trim());
+      }
+    });
+  });
 };
 
 /**
@@ -74,9 +64,7 @@ export const extractTextFromRTF = async (
  * @returns A promise that resolves to the text extracted from the file.
  */
 
-export const extractTextFromPDF = async (
-  file: File
-): Promise<string | Error> => {
+export const extractTextFromPDF = async (file: File): Promise<string | Error> => {
   let extractedText: string = "";
   const pdfBuffer: Buffer = Buffer.from(await file.arrayBuffer());
 
@@ -104,64 +92,44 @@ export const extractTextFromPDF = async (
  * @param file - The file to extract the text from.
  * @returns A promise that resolves to the text extracted from the file.
  */
-export const extractTextFromDOCX = async (
-  file: File
-): Promise<string | Error> => {
-  return new Promise(
-    async (resolve: (text: string) => void, reject: (error: Error) => void) => {
-      try {
-        const arrayBuffer = await file.arrayBuffer();
-        const buffer = Buffer.from(arrayBuffer);
-        const { value: parsedText } = await mammoth.extractRawText({
-          buffer: buffer,
-        });
-        resolve((parsedText || "").trim());
-      } catch (error) {
-        reject(
-          new Error(
-            `Failed to parse DOCX file: ${
-              error instanceof Error ? error.message : "Unknown error"
-            }`
-          )
-        );
-      }
+export const extractTextFromDOCX = async (file: File): Promise<string | Error> => {
+  return new Promise(async (resolve: (text: string) => void, reject: (error: Error) => void) => {
+    try {
+      const arrayBuffer = await file.arrayBuffer();
+      const buffer = Buffer.from(arrayBuffer);
+      const { value: parsedText } = await mammoth.extractRawText({
+        buffer: buffer,
+      });
+      resolve((parsedText || "").trim());
+    } catch (error) {
+      reject(new Error(`Failed to parse DOCX file: ${error instanceof Error ? error.message : "Unknown error"}`));
     }
-  );
+  });
 };
 
-export const extractTextFromCSV = async (
-  file: File
-): Promise<string | Error> => {
-  return new Promise(
-    async (resolve: (text: string) => void, reject: (error: Error) => void) => {
-      try {
-        const parsedText: string[] = [];
+export const extractTextFromCSV = async (file: File): Promise<string | Error> => {
+  return new Promise(async (resolve: (text: string) => void, reject: (error: Error) => void) => {
+    try {
+      const parsedText: string[] = [];
 
-        const arrayBuffer = await file.arrayBuffer();
-        const buffer = Buffer.from(arrayBuffer);
-        const stream = Readable.from(buffer);
-        stream
-          .pipe(csv())
-          .on("data", (data) => {
-            console.log(data);
-            parsedText.push(Object.values(data).join(","));
-          })
-          .on("end", () => {
-            console.log("CSV file parsed successfully");
-            resolve(parsedText.join("\n").trim());
-          })
-          .on("error", (error) => {
-            reject(new Error(`Failed to parse CSV file: ${error.message}`));
-          });
-      } catch (error) {
-        reject(
-          new Error(
-            `Failed to parse CSV file: ${
-              error instanceof Error ? error.message : "Unknown error"
-            }`
-          )
-        );
-      }
+      const arrayBuffer = await file.arrayBuffer();
+      const buffer = Buffer.from(arrayBuffer);
+      const stream = Readable.from(buffer);
+      stream
+        .pipe(csv())
+        .on("data", (data) => {
+          console.log(data);
+          parsedText.push(Object.values(data).join(","));
+        })
+        .on("end", () => {
+          console.log("CSV file parsed successfully");
+          resolve(parsedText.join("\n").trim());
+        })
+        .on("error", (error) => {
+          reject(new Error(`Failed to parse CSV file: ${error.message}`));
+        });
+    } catch (error) {
+      reject(new Error(`Failed to parse CSV file: ${error instanceof Error ? error.message : "Unknown error"}`));
     }
-  );
+  });
 };

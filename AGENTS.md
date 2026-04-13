@@ -10,4 +10,3 @@ Tech Stack
 
 - Next.js
 - Supabase for DB and vector store
-- Vercel AI-SDK

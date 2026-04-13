@@ -18,12 +18,7 @@ export interface ChatMessageFormState {
   error?: string;
 }
 
-export default function ChatInput(props: {
-  inputMessage: string;
-  setInputMessage: (message: string) => void;
-  userDetails: UserDetails;
-  handleMessageSent: () => void;
-}) {
+export default function ChatInput(props: { inputMessage: string; setInputMessage: (message: string) => void; userDetails: UserDetails; handleMessageSent: () => void }) {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [formState, formAction, isFormPending] = useActionState<ChatMessageFormState, FormData>(sendMessage, {
     role: "user",
@@ -48,15 +43,7 @@ export default function ChatInput(props: {
 
   return (
     <form action={formAction} className="flex items-end justify-evenly gap-2">
-      <Textarea
-        ref={textareaRef}
-        name="userTypedMessage"
-        placeholder="Type your message here..."
-        className="resize-none"
-        rows={1}
-        onChange={(e) => props.setInputMessage(e.target.value)}
-        disabled={!props.userDetails}
-      />
+      <Textarea ref={textareaRef} name="userTypedMessage" placeholder="Type your message here..." className="resize-none" rows={1} onChange={(e) => props.setInputMessage(e.target.value)} disabled={!props.userDetails} />
       <Input type="hidden" name="userDetails" value={JSON.stringify(props.userDetails)} />
       <Button type="submit" disabled={isFormPending || !props.inputMessage} className="group">
         {isFormPending ? (

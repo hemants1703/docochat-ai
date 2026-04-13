@@ -139,13 +139,10 @@ export default function TrainForm() {
       const formData: FormData = new FormData();
       formData.append("file", selectedFile as File);
 
-      const confirmFileSupport: Response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/document/confirm-support`,
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
+      const confirmFileSupport: Response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/document/confirm-support`, {
+        method: "POST",
+        body: formData,
+      });
 
       if (!confirmFileSupport.ok) {
         throw new Error((await confirmFileSupport.json()).message);
@@ -173,15 +170,7 @@ export default function TrainForm() {
       <Toaster />
       {/* File Input */}
       <div className="flex items-center gap-2">
-        <Input
-          type="file"
-          name="file"
-          accept=".pdf,.txt,.md,.rtf"
-          className="w-full"
-          ref={fileInputRef}
-          disabled={isResponsePending}
-          onChange={handleFileChange}
-        />
+        <Input type="file" name="file" accept=".pdf,.txt,.md,.rtf" className="w-full" ref={fileInputRef} disabled={isResponsePending} onChange={handleFileChange} />
         <Button
           type="button"
           variant="destructive"
@@ -193,8 +182,7 @@ export default function TrainForm() {
               setFileSelected(null);
               formState.error = undefined;
             }
-          }}
-        >
+          }}>
           <XIcon className="size-4" />
         </Button>
       </div>
@@ -202,11 +190,7 @@ export default function TrainForm() {
       <Input type="hidden" name="userDetails" value={JSON.stringify(userDetails)} />
 
       {/* Preview Uploaded File */}
-      {fileSelected !== null ? (
-        <PreviewSelectedFile file={fileSelected} />
-      ) : (
-        <p className="text-sm text-gray-500">No file selected</p>
-      )}
+      {fileSelected !== null ? <PreviewSelectedFile file={fileSelected} /> : <p className="text-sm text-gray-500">No file selected</p>}
 
       {/* Error and Success Messages */}
       {formState.error && <p className="text-red-500 text-sm mt-2">{formState.error.message}</p>}

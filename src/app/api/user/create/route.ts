@@ -13,7 +13,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       {
         status: 400,
         statusText: "Bad Request",
-      }
+      },
     );
   }
 
@@ -21,11 +21,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
   try {
     // Check if user already exists
-    const { data: existingUser, error: checkError } = await supabase
-      .from("users")
-      .select("id")
-      .eq("id", userDetails.id)
-      .single();
+    const { data: existingUser, error: checkError } = await supabase.from("users").select("id").eq("id", userDetails.id).single();
 
     if (checkError && checkError.code !== "PGRST116") {
       // PGRST116 = no rows returned
@@ -39,7 +35,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
         {
           status: 200,
           statusText: "OK",
-        }
+        },
       );
     }
 
@@ -64,7 +60,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       {
         status: 201,
         statusText: "Created",
-      }
+      },
     );
   } catch (error) {
     console.error("Error while creating user", error);
@@ -76,7 +72,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       {
         status: 500,
         statusText: errorMessage,
-      }
+      },
     );
   }
 }

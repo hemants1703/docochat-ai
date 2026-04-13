@@ -13,13 +13,8 @@ export default function ChatMessagesWelcomeScreen() {
           </div>
         </div>
         <div className="space-y-2">
-          <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
-            Welcome to Docochat AI!
-          </h3>
-          <p className="text-gray-600 dark:text-gray-400 max-w-md">
-            Start chatting with your documents. Ask questions, get insights, and
-            explore your content like never before.
-          </p>
+          <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100">Welcome to Docochat AI!</h3>
+          <p className="text-gray-600 dark:text-gray-400 max-w-md">Start chatting with your documents. Ask questions, get insights, and explore your content like never before.</p>
         </div>
       </div>
 
@@ -27,37 +22,25 @@ export default function ChatMessagesWelcomeScreen() {
         <div className="p-4 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20 rounded-lg border border-blue-200 dark:border-blue-700">
           <div className="flex items-center space-x-2 mb-2">
             <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-            <span className="text-sm font-medium text-blue-700 dark:text-blue-300">
-              Smart Analysis
-            </span>
+            <span className="text-sm font-medium text-blue-700 dark:text-blue-300">Smart Analysis</span>
           </div>
-          <p className="text-xs text-blue-600 dark:text-blue-400">
-            Get intelligent insights from your documents
-          </p>
+          <p className="text-xs text-blue-600 dark:text-blue-400">Get intelligent insights from your documents</p>
         </div>
 
         <div className="p-4 bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-900/20 dark:to-purple-800/20 rounded-lg border border-purple-200 dark:border-purple-700">
           <div className="flex items-center space-x-2 mb-2">
             <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
-            <span className="text-sm font-medium text-purple-700 dark:text-purple-300">
-              Quick Answers
-            </span>
+            <span className="text-sm font-medium text-purple-700 dark:text-purple-300">Quick Answers</span>
           </div>
-          <p className="text-xs text-purple-600 dark:text-purple-400">
-            Find specific information instantly
-          </p>
+          <p className="text-xs text-purple-600 dark:text-purple-400">Find specific information instantly</p>
         </div>
 
         <div className="p-4 bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/20 rounded-lg border border-green-200 dark:border-green-700">
           <div className="flex items-center space-x-2 mb-2">
             <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-            <span className="text-sm font-medium text-green-700 dark:text-green-300">
-              Context Aware
-            </span>
+            <span className="text-sm font-medium text-green-700 dark:text-green-300">Context Aware</span>
           </div>
-          <p className="text-xs text-green-600 dark:text-green-400">
-            Understands your document context
-          </p>
+          <p className="text-xs text-green-600 dark:text-green-400">Understands your document context</p>
         </div>
       </div>
     </div>

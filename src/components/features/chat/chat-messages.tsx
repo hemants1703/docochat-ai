@@ -40,13 +40,7 @@ export default function ChatMessages(props: ChatMessagesProps) {
     <div className="flex flex-col flex-1 space-y-6 p-4 overflow-y-auto">
       <div className="space-y-6">
         {props.chats?.map((message, index) => (
-          <div
-            key={index}
-            className={cn(
-              "flex items-start space-x-3 animate-in fade-in-0 slide-in-from-bottom-2 duration-300",
-              message.role === "user" ? "justify-end" : "justify-start"
-            )}
-          >
+          <div key={index} className={cn("flex items-start space-x-3 animate-in fade-in-0 slide-in-from-bottom-2 duration-300", message.role === "user" ? "justify-end" : "justify-start")}>
             {message.role === "assistant" && (
               <Avatar className="w-8 h-8 border-2 border-blue-200 dark:border-blue-700">
                 <AvatarImage src="/bot-avatar.png" alt="AI Assistant" />
@@ -56,20 +50,12 @@ export default function ChatMessages(props: ChatMessagesProps) {
               </Avatar>
             )}
 
-            <div
-              className={cn(
-                "flex flex-col space-y-1 max-w-[80%] lg:max-w-[70%]",
-                message.role === "user" ? "items-end" : "items-start"
-              )}
-            >
+            <div className={cn("flex flex-col space-y-1 max-w-[80%] lg:max-w-[70%]", message.role === "user" ? "items-end" : "items-start")}>
               <div
                 className={cn(
                   "rounded-2xl shadow-sm border",
-                  message.role === "user"
-                    ? "px-3 py-1 bg-gradient-to-br from-blue-400 to-blue-700 text-white"
-                    : "p-4 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-gray-200 dark:border-gray-700"
-                )}
-              >
+                  message.role === "user" ? "px-3 py-1 bg-gradient-to-br from-blue-400 to-blue-700 text-white" : "p-4 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-gray-200 dark:border-gray-700",
+                )}>
                 <div className="flex items-start space-x-2">
                   <div className="flex-1">
                     {message.role === "assistant" ? (
@@ -77,9 +63,7 @@ export default function ChatMessages(props: ChatMessagesProps) {
                         <ReactMarkdown>{message.message}</ReactMarkdown>
                       </div>
                     ) : (
-                      <p className="text-sm leading-relaxed whitespace-pre-wrap">
-                        {message.message}
-                      </p>
+                      <p className="text-sm leading-relaxed whitespace-pre-wrap">{message.message}</p>
                     )}
                   </div>
                 </div>
@@ -125,18 +109,10 @@ export default function ChatMessages(props: ChatMessagesProps) {
                 <div className="flex items-center space-x-2">
                   <div className="flex space-x-1">
                     <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"></div>
-                    <div
-                      className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"
-                      style={{ animationDelay: "0.1s" }}
-                    ></div>
-                    <div
-                      className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"
-                      style={{ animationDelay: "0.2s" }}
-                    ></div>
+                    <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce" style={{ animationDelay: "0.1s" }}></div>
+                    <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce" style={{ animationDelay: "0.2s" }}></div>
                   </div>
-                  <span className="text-sm text-gray-600 dark:text-gray-400">
-                    AI is thinking...
-                  </span>
+                  <span className="text-sm text-gray-600 dark:text-gray-400">AI is thinking...</span>
                 </div>
               </div>
 

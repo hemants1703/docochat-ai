@@ -7,9 +7,7 @@ import { EmbedContentResponse, GoogleGenAI } from "@google/genai";
  * @returns A Promise resolving to the embedding response or an Error.
  * @throws Error if input is empty or embedding generation fails.
  */
-export async function embedChunkedText(
-  text: string[]
-): Promise<EmbedContentResponse | Error> {
+export async function embedChunkedText(text: string[]): Promise<EmbedContentResponse | Error> {
   if (!text || text.length === 0) {
     return new Error("Text cannot be empty or whitespace.");
   }
@@ -18,22 +16,17 @@ export async function embedChunkedText(
     apiKey: process.env.GEMINI_API_KEY,
   });
 
-  const embeddingResponse: EmbedContentResponse =
-    await embeddingAI.models.embedContent({
-      model: "gemini-embedding-001",
-      contents: text,
-      config: {
-        outputDimensionality: 1536,
-      },
-    });
+  const embeddingResponse: EmbedContentResponse = await embeddingAI.models.embedContent({
+    model: "gemini-embedding-001",
+    contents: text,
+    config: {
+      outputDimensionality: 1536,
+    },
+  });
 
   const embeddingLength = embeddingResponse.embeddings?.length;
 
-  if (
-    !embeddingResponse ||
-    !embeddingResponse.embeddings ||
-    embeddingLength === 0
-  ) {
+  if (!embeddingResponse || !embeddingResponse.embeddings || embeddingLength === 0) {
     throw new Error("Failed to generate embeddings");
   }
 
@@ -47,9 +40,7 @@ export async function embedChunkedText(
  * @returns A Promise resolving to the embedding response or an Error.
  * @throws Error if input is empty or embedding generation fails.
  */
-export async function embedText(
-  text: string
-): Promise<EmbedContentResponse | Error> {
+export async function embedText(text: string): Promise<EmbedContentResponse | Error> {
   if (!text || text.length === 0) {
     return new Error("Text cannot be empty or whitespace.");
   }
@@ -58,14 +49,13 @@ export async function embedText(
     apiKey: process.env.GEMINI_API_KEY,
   });
 
-  const embeddingResponse: EmbedContentResponse =
-    await embeddingAI.models.embedContent({
-      model: "gemini-embedding-001",
-      contents: [text],
-      config: {
-        outputDimensionality: 1536,
-      },
-    });
+  const embeddingResponse: EmbedContentResponse = await embeddingAI.models.embedContent({
+    model: "gemini-embedding-001",
+    contents: [text],
+    config: {
+      outputDimensionality: 1536,
+    },
+  });
 
   return embeddingResponse;
 }

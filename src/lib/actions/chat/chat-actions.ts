@@ -7,10 +7,7 @@ import { embedText } from "@/lib/api-services/train/text-embedding-services";
 import { revalidatePath } from "next/cache";
 import { GoogleGenAI } from "@google/genai";
 
-export async function sendMessage(
-  previousState: ChatMessageFormState,
-  formData: FormData
-): Promise<ChatMessageFormState> {
+export async function sendMessage(previousState: ChatMessageFormState, formData: FormData): Promise<ChatMessageFormState> {
   const validatedFields = chatMessageSchema.safeParse({
     role: previousState.role,
     userTypedMessage: formData.get("userTypedMessage"),
@@ -70,10 +67,7 @@ Answer the user's question based ONLY on the information provided in these chunk
 
   let previousMessages;
   try {
-    const { data: messages, error: messagesError } = await supabase
-      .from("chats_store")
-      .select("*")
-      .eq("user_id", validatedFields.data.userDetails.id);
+    const { data: messages, error: messagesError } = await supabase.from("chats_store").select("*").eq("user_id", validatedFields.data.userDetails.id);
 
     if (messagesError) {
       throw new Error(messagesError.message);

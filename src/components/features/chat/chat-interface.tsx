@@ -39,8 +39,7 @@ export default function ChatInterface() {
     // If user details are not found, redirect to train page
     if (!userDetailsLS) {
       toast.error("Redirect", {
-        description:
-          "Redirecting to train page since you haven't trained any documents yet to chat with them, first train your documents to chat with them.",
+        description: "Redirecting to train page since you haven't trained any documents yet to chat with them, first train your documents to chat with them.",
       });
       redirect("/train");
     } else if (userDetailsLS) {
@@ -52,14 +51,7 @@ export default function ChatInterface() {
   return (
     <div className="flex flex-col flex-1 max-w-4xl mx-auto p-4 space-y-4 h-screen overflow-y-auto">
       <ChatMessages chats={chats} />
-      {userDetails && (
-        <ChatInput
-          inputMessage={inputMessage}
-          setInputMessage={setInputMessage}
-          userDetails={userDetails}
-          handleMessageSent={handleMessageSent}
-        />
-      )}
+      {userDetails && <ChatInput inputMessage={inputMessage} setInputMessage={setInputMessage} userDetails={userDetails} handleMessageSent={handleMessageSent} />}
     </div>
   );
 }
