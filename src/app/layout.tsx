@@ -1,9 +1,10 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import ToastProvider from "@/components/toast-provider";
 import { Analytics } from "@vercel/analytics/next";
+import clsx from "clsx";
+import type { Metadata } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
+import "./globals.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -61,7 +62,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gradient-to-b from-gray-100 to-gray-200 dark:from-gray-900 dark:to-gray-800`}>
+      <body className={clsx("antialiased bg-linear-to-b from-gray-100 to-gray-200 dark:from-gray-900 dark:to-gray-800", geistSans.variable, geistMono.variable)}>
         <Analytics />
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           {children}

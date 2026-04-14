@@ -1,8 +1,9 @@
-import Image from "next/image";
-import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import clsx from "clsx";
 import { FileText, MessageCircle, Upload } from "lucide-react";
 import { Red_Rose } from "next/font/google";
+import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 const redRose = Red_Rose({
@@ -12,7 +13,7 @@ const redRose = Red_Rose({
 
 export default function Home() {
   return (
-    <div className={`min-h-screen bg-linear-to-b from-gray-100 to-gray-200 dark:from-gray-900 dark:to-gray-800 ${redRose.className}`}>
+    <div className={clsx("min-h-screen bg-linear-to-b from-gray-100 to-gray-200 dark:from-gray-900 dark:to-gray-800", redRose.className)}>
       {/* Hero Section */}
       <section className="relative overflow-hidden py-28 px-4 text-center bg-linear-to-b from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-700 animate-fade-in">
         {/* Animated Blobs */}

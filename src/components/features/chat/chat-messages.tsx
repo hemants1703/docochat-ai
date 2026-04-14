@@ -44,7 +44,7 @@ export default function ChatMessages(props: ChatMessagesProps) {
             {message.role === "assistant" && (
               <Avatar className="w-8 h-8 border-2 border-blue-200 dark:border-blue-700">
                 <AvatarImage src="/bot-avatar.png" alt="AI Assistant" />
-                <AvatarFallback className="bg-gradient-to-br from-blue-500 to-purple-600 text-white text-xs">
+                <AvatarFallback className="bg-linear-to-br from-blue-500 to-purple-600 text-white text-xs">
                   <Bot className="w-4 h-4" />
                 </AvatarFallback>
               </Avatar>
@@ -54,7 +54,7 @@ export default function ChatMessages(props: ChatMessagesProps) {
               <div
                 className={cn(
                   "rounded-2xl shadow-sm border",
-                  message.role === "user" ? "px-3 py-1 bg-gradient-to-br from-blue-400 to-blue-700 text-white" : "p-4 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-gray-200 dark:border-gray-700",
+                  message.role === "user" ? "px-3 py-1 bg-linear-to-br from-blue-400 to-blue-700 text-white" : "p-4 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-gray-200 dark:border-gray-700",
                 )}>
                 <div className="flex items-start space-x-2">
                   <div className="flex-1">
@@ -87,7 +87,7 @@ export default function ChatMessages(props: ChatMessagesProps) {
             {message.role === "user" && (
               <Avatar className="w-8 h-8 border-2 border-gray-200 dark:border-gray-700">
                 <AvatarImage src="/user-avatar.png" alt="You" />
-                <AvatarFallback className="bg-gradient-to-br from-gray-500 to-gray-600 text-white text-xs">
+                <AvatarFallback className="bg-linear-to-br from-gray-500 to-gray-600 text-white text-xs">
                   <User className="w-4 h-4" />
                 </AvatarFallback>
               </Avatar>
@@ -99,7 +99,7 @@ export default function ChatMessages(props: ChatMessagesProps) {
           <div className="flex items-start space-x-3 animate-in fade-in-0 slide-in-from-bottom-2 duration-300">
             <Avatar className="w-8 h-8 border-2 border-blue-200 dark:border-blue-700">
               <AvatarImage src="/bot-avatar.png" alt="AI Assistant" />
-              <AvatarFallback className="bg-gradient-to-br from-blue-500 to-purple-600 text-white text-xs">
+              <AvatarFallback className="bg-linear-to-br from-blue-500 to-purple-600 text-white text-xs">
                 <Bot className="w-4 h-4" />
               </AvatarFallback>
             </Avatar>

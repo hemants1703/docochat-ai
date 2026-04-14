@@ -1,18 +1,18 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { trainDocument } from "@/lib/actions/train/document-actions";
-import { CircuitBoardIcon, Loader2Icon, XIcon } from "lucide-react";
-import { useActionState, useState, useRef, useEffect } from "react";
-import PreviewSelectedFile from "./preview-selected-file";
-import { toast } from "sonner";
-import { Toaster } from "@/components/ui/sonner";
+import { createClient } from "@/../supabase/client";
 import { UserDetails } from "@/app/train/page";
 import QuotaExceeded from "@/components/features/train/quota-exceeded";
-import { createClient } from "@/../supabase/client";
-import { redirect } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Toaster } from "@/components/ui/sonner";
+import { trainDocument } from "@/lib/actions/train/document-actions";
 import { generateRandomUUID } from "@/lib/actions/train/uuid-generator";
+import { CircuitBoardIcon, Loader2Icon, XIcon } from "lucide-react";
+import { redirect } from "next/navigation";
+import { useActionState, useEffect, useRef, useState } from "react";
+import { toast } from "sonner";
+import PreviewSelectedFile from "./preview-selected-file";
 
 export interface TrainFormState {
   file: File | null;
@@ -22,17 +22,13 @@ export interface TrainFormState {
 }
 
 export default function TrainForm() {
-  const [formState, formAction, isResponsePending] = useActionState<TrainFormState, FormData>(trainDocument, {
-    file: null,
-    error: undefined,
-    success: undefined,
-    message: undefined,
-  });
+  const [formState, formAction, isResponsePending] = useActionState<TrainFormState, FormData>(trainDocument, { file: null });
   const [fileSelected, setFileSelected] = useState<File | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [userDetails, setUserDetails] = useState<UserDetails | null>(null);
   const [isCreatingUser, setIsCreatingUser] = useState(false); // Add this
 
+  // Function to create user in Supabase and store details in localStorage
   const createUserInSupabaseAndStoreInLocalStorage = async () => {
     // Prevent multiple simultaneous calls
     if (isCreatingUser) {
@@ -85,6 +81,7 @@ export default function TrainForm() {
     }
   }, []); // Remove isCreatingUser from deps to prevent re-runs
 
+  // Function to update user details from Supabase and localStorage after training
   const updateUserDetails = async () => {
     const supabase = createClient();
     const { data, error } = await supabase.from("users").select("*").eq("id", userDetails?.id);

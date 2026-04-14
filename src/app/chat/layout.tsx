@@ -6,8 +6,8 @@ export const metadata = {
 
 export default function ChatLayout({ children }: { children: React.ReactNode }) {
   return (
-    <main className="flex flex-1 h-svh bg-gradient-to-b from-gray-100 to-gray-200 dark:from-gray-900 dark:to-gray-800">
-      <aside className="w-64 p-4 border-r border-gray-200 dark:border-gray-700 h-full bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-700">
+    <main className="flex flex-1 h-svh bg-linear-to-b from-gray-100 to-gray-200 dark:from-gray-900 dark:to-gray-800">
+      <aside className="w-64 p-4 border-r border-gray-200 dark:border-gray-700 h-full bg-linear-to-b from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-700">
         <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100">Uploaded Documents</h2>
         <ChatSidebarContent />
       </aside>
