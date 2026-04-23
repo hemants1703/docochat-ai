@@ -9,4 +9,6 @@ A sleek, modern yet minimal application that let's you talk to your documents wi
 Tech Stack
 
 - Next.js
-- Supabase for DB and vector store
+- Ollama inference
+- Vercel AI SDK
+- Vercel AI Elements
