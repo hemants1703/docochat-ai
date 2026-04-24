@@ -10,29 +10,11 @@ import { StickToBottom, useStickToBottomContext } from "use-stick-to-bottom";
 
 export type ConversationProps = ComponentProps<typeof StickToBottom>;
 
-export const Conversation = ({ className, ...props }: ConversationProps) => (
-  <StickToBottom
-    className={cn("relative flex-1 overflow-y-hidden", className)}
-    initial="smooth"
-    resize="smooth"
-    role="log"
-    {...props}
-  />
-);
+export const Conversation = ({ className, ...props }: ConversationProps) => <StickToBottom className={cn("relative flex-1 overflow-y-hidden", className)} initial="smooth" resize="smooth" role="log" {...props} />;
 
-export type ConversationContentProps = ComponentProps<
-  typeof StickToBottom.Content
->;
+export type ConversationContentProps = ComponentProps<typeof StickToBottom.Content>;
 
-export const ConversationContent = ({
-  className,
-  ...props
-}: ConversationContentProps) => (
-  <StickToBottom.Content
-    className={cn("flex flex-col gap-8 p-4", className)}
-    {...props}
-  />
-);
+export const ConversationContent = ({ className, ...props }: ConversationContentProps) => <StickToBottom.Content className={cn("flex flex-col gap-6 p-4 max-w-4xl mx-auto w-full", className)} {...props} />;
 
 export type ConversationEmptyStateProps = ComponentProps<"div"> & {
   title?: string;
@@ -40,29 +22,14 @@ export type ConversationEmptyStateProps = ComponentProps<"div"> & {
   icon?: React.ReactNode;
 };
 
-export const ConversationEmptyState = ({
-  className,
-  title = "No messages yet",
-  description = "Start a conversation to see messages here",
-  icon,
-  children,
-  ...props
-}: ConversationEmptyStateProps) => (
-  <div
-    className={cn(
-      "flex size-full flex-col items-center justify-center gap-3 p-8 text-center",
-      className
-    )}
-    {...props}
-  >
+export const ConversationEmptyState = ({ className, title = "Start Chatting", description = "Ask questions, upload documents, or just say hello.", icon, children, ...props }: ConversationEmptyStateProps) => (
+  <div className={cn("flex size-full flex-col items-center justify-center gap-4 p-8 text-center animate-in fade-in zoom-in-95 duration-500", className)} {...props}>
     {children ?? (
       <>
-        {icon && <div className="text-muted-foreground">{icon}</div>}
-        <div className="space-y-1">
-          <h3 className="font-medium text-sm">{title}</h3>
-          {description && (
-            <p className="text-muted-foreground text-sm">{description}</p>
-          )}
+        {icon && <div className="flex h-16 w-16 items-center justify-center rounded-full bg-secondary text-primary/80 shadow-sm border border-border/40">{icon}</div>}
+        <div className="space-y-2">
+          <h3 className="font-medium text-lg tracking-tight">{title}</h3>
+          {description && <p className="text-muted-foreground text-sm max-w-[250px] leading-relaxed">{description}</p>}
         </div>
       </>
     )}
@@ -71,10 +38,7 @@ export const ConversationEmptyState = ({
 
 export type ConversationScrollButtonProps = ComponentProps<typeof Button>;
 
-export const ConversationScrollButton = ({
-  className,
-  ...props
-}: ConversationScrollButtonProps) => {
+export const ConversationScrollButton = ({ className, ...props }: ConversationScrollButtonProps) => {
   const { isAtBottom, scrollToBottom } = useStickToBottomContext();
 
   const handleScrollToBottom = useCallback(() => {
@@ -83,17 +47,7 @@ export const ConversationScrollButton = ({
 
   return (
     !isAtBottom && (
-      <Button
-        className={cn(
-          "absolute bottom-4 left-[50%] translate-x-[-50%] rounded-full dark:bg-background dark:hover:bg-muted",
-          className
-        )}
-        onClick={handleScrollToBottom}
-        size="icon"
-        type="button"
-        variant="outline"
-        {...props}
-      >
+      <Button className={cn("absolute bottom-4 left-[50%] translate-x-[-50%] rounded-full dark:bg-background dark:hover:bg-muted", className)} onClick={handleScrollToBottom} size="icon" type="button" variant="outline" {...props}>
         <ArrowDownIcon className="size-4" />
       </Button>
     )
@@ -106,37 +60,20 @@ const getMessageText = (message: UIMessage): string =>
     .map((part) => part.text)
     .join("");
 
-export type ConversationDownloadProps = Omit<
-  ComponentProps<typeof Button>,
-  "onClick"
-> & {
+export type ConversationDownloadProps = Omit<ComponentProps<typeof Button>, "onClick"> & {
   messages: UIMessage[];
   filename?: string;
   formatMessage?: (message: UIMessage, index: number) => string;
 };
 
 const defaultFormatMessage = (message: UIMessage): string => {
-  const roleLabel =
-    message.role.charAt(0).toUpperCase() + message.role.slice(1);
+  const roleLabel = message.role.charAt(0).toUpperCase() + message.role.slice(1);
   return `**${roleLabel}:** ${getMessageText(message)}`;
 };
 
-export const messagesToMarkdown = (
-  messages: UIMessage[],
-  formatMessage: (
-    message: UIMessage,
-    index: number
-  ) => string = defaultFormatMessage
-): string => messages.map((msg, i) => formatMessage(msg, i)).join("\n\n");
+export const messagesToMarkdown = (messages: UIMessage[], formatMessage: (message: UIMessage, index: number) => string = defaultFormatMessage): string => messages.map((msg, i) => formatMessage(msg, i)).join("\n\n");
 
-export const ConversationDownload = ({
-  messages,
-  filename = "conversation.md",
-  formatMessage = defaultFormatMessage,
-  className,
-  children,
-  ...props
-}: ConversationDownloadProps) => {
+export const ConversationDownload = ({ messages, filename = "conversation.md", formatMessage = defaultFormatMessage, className, children, ...props }: ConversationDownloadProps) => {
   const handleDownload = useCallback(() => {
     const markdown = messagesToMarkdown(messages, formatMessage);
     const blob = new Blob([markdown], { type: "text/markdown" });
@@ -152,16 +89,12 @@ export const ConversationDownload = ({
 
   return (
     <Button
-      className={cn(
-        "absolute top-4 right-4 rounded-full dark:bg-background dark:hover:bg-muted",
-        className
-      )}
+      className={cn("rounded-full bg-background/50 backdrop-blur-xl border border-border/40 shadow-sm hover:bg-muted/50 transition-all text-muted-foreground hover:text-foreground", className)}
       onClick={handleDownload}
       size="icon"
       type="button"
       variant="outline"
-      {...props}
-    >
+      {...props}>
       {children ?? <DownloadIcon className="size-4" />}
     </Button>
   );
