@@ -13,6 +13,9 @@ services:
     depends_on:
       - vector-db
     ports:
-      - "8000:8000"
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - QDRANT_REST_API=http://vector-db:6333
 volumes:
   docochat_volume:
