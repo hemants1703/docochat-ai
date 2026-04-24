@@ -1,15 +1,4 @@
-import TrainForm from "@/components/features/train/train-form";
-
-export interface UserDetails {
-  id: string;
-  username: string;
-  credits_available: number;
-  credits_used: number;
-  files_available: number;
-  files_used: number;
-  created_at: string;
-  updated_at: string;
-}
+import TrainForm from "@/components/features/train/TrainForm";
 
 export default async function TrainPage() {
   return (

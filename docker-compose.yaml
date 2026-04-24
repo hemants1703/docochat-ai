@@ -1,0 +1,18 @@
+services:
+  vector-db:
+    image: qdrant/qdrant:latest
+    container_name: docochat-qdrant
+    volumes:
+      - docochat_volume:/qdrant/storage
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+  app:
+    build: .
+    container_name: docochat-app
+    depends_on:
+      - vector-db
+    ports:
+      - "8000:8000"
+volumes:
+  docochat_volume:

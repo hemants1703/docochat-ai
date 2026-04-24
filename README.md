@@ -12,6 +12,8 @@
 
 *Upload • Train • Chat • Discover*
 
+**_Live demo is not hosted due to API cost constraints. A full working demonstration is provided via video. The project can be run locally using the provided setup instructions._**
+
 [🚀 Live Demo](#) • [📖 Documentation](#getting-started) • [🏗️ Architecture](#system-architecture) • [🔧 Setup](#installation)
 
 </div>

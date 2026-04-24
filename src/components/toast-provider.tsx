@@ -2,6 +2,6 @@
 
 import { Toaster } from "@/components/ui/sonner";
 
-const ToastProvider = () => <Toaster />;
+const ToastProvider = () => <Toaster richColors />;
 
 export default ToastProvider;
