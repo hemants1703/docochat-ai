@@ -4,7 +4,6 @@
 
 [![Next.js](https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
-[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Local-blue?style=for-the-badge&logo=postgresql)](https://postgresql.org/)
 [![Qdrant](https://img.shields.io/badge/Qdrant-Vector%20Store-red?style=for-the-badge&logo=qdrant)](https://qdrant.tech/)
 [![Ollama](https://img.shields.io/badge/Ollama-Local%20AI-black?style=for-the-badge&logo=ollama)](https://ollama.com/)
 [![TailwindCSS](https://img.shields.io/badge/TailwindCSS-4-06B6D4?style=for-the-badge&logo=tailwindcss)](https://tailwindcss.com/)
@@ -27,7 +26,7 @@ DocoChat AI revolutionizes document interaction by combining cutting-edge **Retr
 
 - 🎯 **Zero Learning Curve** — Upload, train, and start chatting in seconds
 - 🧠 **Advanced RAG Pipeline** — Semantic search with Qdrant and Ollama embeddings
-- 🏗️ **Local Architecture** — Runs entirely locally with Postgres and Ollama for total privacy
+- 🏗️ **Local Architecture** — Runs entirely locally with Ollama for total privacy
 - 🎨 **Beautiful UX** — Modern glassmorphism design with thoughtful animations matching Apple HIG and Vercel aesthetics
 - ⚡ **Lightning Fast** — Optimized vector search with intelligent chunking
 - 🔒 **Privacy-First** — Your documents stay secure and are never sent to external APIs
@@ -83,7 +82,6 @@ graph TB
 
     subgraph "Local Backends"
         Qdrant["🔮 Qdrant Vector Store<br/>• Cosine similarity search<br/>• Local index"]
-        PG["🗄️ PostgreSQL DB<br/>• Users & metadata"]
         Ollama["🧠 Ollama Inference<br/>• nomic-embed-text<br/>• llama3.2"]
     end
 
@@ -100,9 +98,6 @@ graph TB
     ChatAPI --> Embed
     ChatAPI --> Qdrant
     ChatAPI --> Ollama
-    
-    TrainAPI --> PG
-    ChatAPI --> PG
 ```
 
 </div>
@@ -114,7 +109,6 @@ graph TB
 Frontend: Next.js 15 (App Router) + React 19
 Styling: Tailwind CSS 4 + shadcn/ui
 UI framework: Vercel AI SDK + AI Elements
-Backend Database: PostgreSQL (Local via pg)
 Vector Database: Qdrant (Local REST API)
 AI Embeddings & Chat: Ollama (llama3.2 / nomic-embed-text)
 ```
@@ -126,7 +120,6 @@ AI Embeddings & Chat: Ollama (llama3.2 / nomic-embed-text)
 ### Prerequisites
 
 - **Node.js** 18+ with pnpm
-- **PostgreSQL** running locally
 - **Qdrant** running locally (e.g. via Docker)
 - **Ollama** running locally (with models pulled: `nomic-embed-text`, `llama3.2`)
 
@@ -142,7 +135,7 @@ pnpm install
 
 # Set up environment variables
 cp .env.example .env.local
-# Edit .env.local with your local DB and Qdrant credentials
+# Edit .env.local with your Qdrant and Ollama URLs
 
 # Start development server
 pnpm dev
@@ -157,9 +150,6 @@ ollama pull nomic-embed-text
 Create `.env.local` in the project root:
 
 ```bash
-# Database Configuration
-DATABASE_URL=postgresql://user:password@localhost:5432/docochat
-
 # Qdrant Vector Store
 QDRANT_REST_API=http://localhost:6333
 

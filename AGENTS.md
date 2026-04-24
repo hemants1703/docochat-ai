@@ -11,6 +11,5 @@ A sleek, modern yet minimal application that lets you talk to your documents wit
 - Frontend: **Next.js 15 (App Router)**
 - Styling: **Tailwind CSS 4 & shadcn/ui**
 - AI Framework: **Vercel AI SDK & AI Elements**
-- Database: **Local PostgreSQL**
 - Vector Store: **Qdrant (Local REST)**
 - LLM & Embeddings: **Ollama (llama3.2 / nomic-embed-text)**
