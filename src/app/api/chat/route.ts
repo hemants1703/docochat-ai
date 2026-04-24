@@ -54,6 +54,7 @@ export async function POST(req: Request) {
             If the answer is not in the context, say "I don't know".
             Do not guess or invent details.
             If the user asks a follow-up, use the conversation context to understand who or what they mean.
+            Always try to stricly prioritize the context details rather than anything else.
 
 			      Context: ${context}`,
   });

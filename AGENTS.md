@@ -1,14 +1,16 @@
 # Docochat AI - Talk to your documents!
 
-## Get 10 credits for free!
+## 100% Local & Private Document Chat
 
-## Supported Documents - PDF, DOCX, TXT, MD, CSV, RTF.
+A sleek, modern yet minimal application that lets you talk to your documents with a user-centric UI. The application is built with a focus on great UX, ensuring a robust, secure, and intuitive experience while keeping all your documents and data completely private by running entirely on local infrastructure.
 
-A sleek, modern yet minimal application that let's you talk to your documents with a really handy, useful and user-centric UI that focuses on really great UX since the software has been made with full dedication to be a strong software and the UI needs to be created in such a manner that it gives the user a sense of this being a robust, secure and really interesting software!
+## Supported Documents
+- **PDF, DOCX, TXT, MD, CSV, RTF**
 
-Tech Stack
-
-- Next.js
-- Ollama inference
-- Vercel AI SDK
-- Vercel AI Elements
+## Tech Stack
+- Frontend: **Next.js 15 (App Router)**
+- Styling: **Tailwind CSS 4 & shadcn/ui**
+- AI Framework: **Vercel AI SDK & AI Elements**
+- Database: **Local PostgreSQL**
+- Vector Store: **Qdrant (Local REST)**
+- LLM & Embeddings: **Ollama (llama3.2 / nomic-embed-text)**
