@@ -19,6 +19,25 @@
 
 ---
 
+## 📺 Live Demo & Deployment Philosophy
+
+<div align="center">
+  <a href="https://youtu.be/amWtA5Oci-E">
+    <img src="https://img.youtube.com/vi/amWtA5Oci-E/maxresdefault.jpg" alt="DocoChat AI Demo Video" width="800" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+  </a>
+  <br/>
+  <i>Click the image above to watch the full working demonstration! 🚀</i>
+</div>
+
+<br/>
+
+**Why isn't this deployed live?**  
+Hosting an AI application with dedicated vector databases and LLM inference engines is highly resource-intensive and costly. As an engineer, making pragmatic economic decisions is crucial. Rather than burning ongoing cloud compute credits to host a live demo of an app that is fundamentally designed for **local, private execution**, I have recorded a comprehensive video walkthrough showcasing its capabilities.
+
+The true architectural value of this project shines in its **zero-configuration local deployment**. Anyone reviewing this codebase—recruiters or engineers—can clone the repository, run `docker compose up`, and have the entire RAG pipeline running perfectly on their own machine in minutes.
+
+---
+
 ## 🌟 Engineering Overview
 
 DocoChat AI is engineered to be a completely self-contained, privacy-first document analysis tool. Rather than relying on managed cloud services for vector storage or LLM inference, it orchestrates a complete RAG pipeline locally using **Docker**, **Qdrant**, and **Ollama**.
