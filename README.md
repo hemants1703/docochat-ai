@@ -4,85 +4,106 @@
 
 [![Next.js](https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
+[![Docker](https://img.shields.io/badge/Docker-Containerized-2496ED?style=for-the-badge&logo=docker)](https://www.docker.com/)
 [![Qdrant](https://img.shields.io/badge/Qdrant-Vector%20Store-red?style=for-the-badge&logo=qdrant)](https://qdrant.tech/)
 [![Ollama](https://img.shields.io/badge/Ollama-Local%20AI-black?style=for-the-badge&logo=ollama)](https://ollama.com/)
 [![TailwindCSS](https://img.shields.io/badge/TailwindCSS-4-06B6D4?style=for-the-badge&logo=tailwindcss)](https://tailwindcss.com/)
 
-**Transform your documents into intelligent conversation partners**
+**A zero-configuration, locally hosted Retrieval-Augmented Generation (RAG) application.**
 
-*Upload • Train • Chat • Discover*
+*Upload • Extract • Embed • Chat*
 
-**_100% Local & Private. All your documents and chat history remain on your machine._**
+**_100% Local & Private. All documents, vector embeddings, and inference run entirely on your hardware._**
 
 </div>
 
 ---
 
-## 🌟 What Makes DocoChat AI Special
+## 🌟 Engineering Overview
 
-DocoChat AI revolutionizes document interaction by combining cutting-edge **Retrieval-Augmented Generation (RAG)** with an intuitive, modern interface. Built for developers, researchers, and professionals who need to extract insights from their documents instantly, whilst respecting total privacy through local AI models.
+DocoChat AI is engineered to be a completely self-contained, privacy-first document analysis tool. Rather than relying on managed cloud services for vector storage or LLM inference, it orchestrates a complete RAG pipeline locally using **Docker**, **Qdrant**, and **Ollama**.
 
-### ✨ Key Highlights
+### ✨ Architectural Highlights
 
-- 🎯 **Zero Learning Curve** — Upload, train, and start chatting in seconds
-- 🧠 **Advanced RAG Pipeline** — Semantic search with Qdrant and Ollama embeddings
-- 🏗️ **Local Architecture** — Runs entirely locally with Ollama for total privacy
-- 🎨 **Beautiful UX** — Modern glassmorphism design with thoughtful animations matching Apple HIG and Vercel aesthetics
-- ⚡ **Lightning Fast** — Optimized vector search with intelligent chunking
-- 🔒 **Privacy-First** — Your documents stay secure and are never sent to external APIs
+- **Containerized Next.js** — Utilizes Next.js `output: 'standalone'` mode within a multi-stage Docker build, minimizing the image size securely while maintaining dynamic server-side capabilities (Server Actions & API Routes).
+- **Local Vector Search** — Deploys a Qdrant container alongside the application via `docker-compose`, providing instant cosine-similarity vector search with zero network latency.
+- **Host-Bound Inference** — Securely interfaces with Ollama running on the host machine (`host.docker.internal`), allowing the containerized app to harness the host's GPU/CPU for heavy model inference (`llama3.2` and `nomic-embed-text`).
+- **Streaming UI** — Leverages the Vercel AI SDK to stream generative tokens back to the client in real-time, providing a highly responsive user experience.
 
 ---
 
 ## 🚀 Features
 
-### 📄 Document Support
-- **PDF** — Full text extraction
-- **DOCX** — Microsoft Word documents
-- **TXT & MD** — Plain text and Markdown files
-- **RTF** — Rich Text Format documents
-- **CSV** — Structured data files
+### 📄 Document Ingestion
+- **Format Support**: PDF, DOCX, TXT, MD, CSV, RTF.
+- **Extraction & Chunking**: Automatic parsing and semantic chunking of documents before embedding to ensure high-quality context retrieval.
 
-### 🤖 AI-Powered Intelligence
-- **Semantic Search** — Find relevant content using meaning, not just keywords
-- **Contextual Responses** — AI understands your document's context with local LLMs (llama3.2, etc.)
-- **Conversation Memory** — Maintains chat history for coherent discussions
-- **Multi-Document Training** — Train multiple files for comprehensive knowledge
-
-### 🎨 User Experience
-- **Responsive Design** — Perfect on desktop, tablet, and mobile
-- **Refined Interface** — Floating inputs, glassmorphic download buttons, custom rounded bubbles
-- **Real-time Feedback** — Live upload progress, streaming text, and generation status
+### 🤖 AI Pipeline
+- **Local Embeddings**: Uses `nomic-embed-text` to generate high-dimensional vectors for document chunks.
+- **Semantic Retrieval**: Qdrant vector store handles efficient Nearest Neighbor search to fetch contexts.
+- **Generative Inference**: `llama3.2` processes the retrieved context alongside the user's query to generate accurate, source-backed responses without hallucination.
 
 ---
 
-## 🏗️ System Architecture
+## 🛠️ Getting Started (Zero-Config Setup)
+
+The project is heavily optimized for a simple, one-command deployment. There is no need for local API keys or complex setups.
+
+### Prerequisites
+
+1. **[Docker Desktop](https://www.docker.com/products/docker-desktop/)** / **[OrbStack](https://orbstack.dev)** installed and running on your machine.
+2. **[Ollama](https://ollama.com/)** installed and running on your host machine.
+
+### 1. Download Required AI Models
+Open your host terminal and pull the required models into Ollama:
+```bash
+ollama pull llama3.2
+ollama pull nomic-embed-text
+```
+
+### 2. Start the Application
+Clone the repository and spin up the complete environment using Docker Compose:
+```bash
+git clone https://github.com/hemants1703/docochat-ai.git
+cd docochat-ai
+
+# Build and start the Next.js app + Qdrant Vector database
+docker compose up --build -d
+```
+
+### 3. Start Chatting
+Open [http://localhost:3000](http://localhost:3000) in your browser. 
+You can now upload documents and interact with them immediately!
+
+*(Note: Ensure your local Ollama app is actively running on your host machine so the Docker container can communicate with it).*
+
+---
+
+## 🏗️ System Architecture Flow
 
 <div align="center">
-
-### Data Flow Pipeline
 
 ```mermaid
 graph TB
     subgraph "Frontend Layer"
-        UI["🌐 Next.js App<br/>• Landing Page<br/>• Train Interface<br/>• Chat Interface"]
-        Components["🧩 UI Components<br/>• shadcn/ui<br/>• TailwindCSS 4<br/>• AI Elements"]
+        UI["🌐 Next.js Container<br/>• Server Actions<br/>• React Server Components"]
     end
 
     subgraph "API Layer"
-        ConfirmAPI["📋 /api/document/confirm-support<br/>• File type/size validation"]
-        TrainAPI["🎯 /api/document/train<br/>• Text extraction & chunking<br/>• Qdrant storage indexing"]
-        ChatAPI["💬 /api/chat<br/>• Query embedding<br/>• Qdrant search<br/>• AI streaming response"]
+        ConfirmAPI["📋 /api/document/confirm-support"]
+        TrainAPI["🎯 /api/document/ingest<br/>• Extract & Chunk"]
+        ChatAPI["💬 /api/chat<br/>• Stream LLM response"]
     end
 
     subgraph "Processing Pipeline"
-        Extract["📄 Text Extraction<br/>• Format parsers"]
-        Chunk["✂️ Text Chunking<br/>• Intelligent context splitting"]
-        Embed["🔢 Text Embedding<br/>• Ollama (nomic-embed-text)<br/>• Local embeddings"]
+        Extract["📄 Text Extraction"]
+        Chunk["✂️ Text Chunking"]
+        Embed["🔢 Text Embedding"]
     end
 
-    subgraph "Local Backends"
-        Qdrant["🔮 Qdrant Vector Store<br/>• Cosine similarity search<br/>• Local index"]
-        Ollama["🧠 Ollama Inference<br/>• nomic-embed-text<br/>• llama3.2"]
+    subgraph "Local Infrastructure"
+        Qdrant["🔮 Qdrant (Docker)<br/>• Port 6333<br/>• Vector Database"]
+        Ollama["🧠 Ollama (Host Machine)<br/>• Port 11434<br/>• llama3.2 / nomic-embed-text"]
     end
 
     UI --> ConfirmAPI
@@ -101,71 +122,6 @@ graph TB
 ```
 
 </div>
-
-### 🏛️ Technical Architecture
-
-```typescript
-// Modern Tech Stack
-Frontend: Next.js 15 (App Router) + React 19
-Styling: Tailwind CSS 4 + shadcn/ui
-UI framework: Vercel AI SDK + AI Elements
-Vector Database: Qdrant (Local REST API)
-AI Embeddings & Chat: Ollama (llama3.2 / nomic-embed-text)
-```
-
----
-
-## 🛠️ Installation
-
-### Prerequisites
-
-- **Node.js** 18+ with pnpm
-- **Qdrant** running locally (e.g. via Docker)
-- **Ollama** running locally (with models pulled: `nomic-embed-text`, `llama3.2`)
-
-### Quick Start
-
-```bash
-# Clone the repository
-git clone https://github.com/yourusername/docochat-ai.git
-cd docochat-ai
-
-# Install dependencies
-pnpm install
-
-# Set up environment variables
-cp .env.example .env.local
-# Edit .env.local with your Qdrant and Ollama URLs
-
-# Start development server
-pnpm dev
-
-# Pull necessary LLM models
-ollama pull llama3.2
-ollama pull nomic-embed-text
-```
-
-### Environment Configuration
-
-Create `.env.local` in the project root:
-
-```bash
-# Qdrant Vector Store
-QDRANT_REST_API=http://localhost:6333
-
-# Ollama
-OLLAMA_URL=http://localhost:11434
-```
-
----
-
-## 🎨 UI/UX Features
-
-### Design System
-- **Glassmorphism** — Modern blur effects, floating elements and transparency
-- **Micro-interactions** — Smooth animations and transitions out of conversational flow
-- **Refined Typography** — Leading-relaxed, clear and accessible font weights
-- **Responsive Design** — Desktop and Mobile optimized
 
 ---
 
