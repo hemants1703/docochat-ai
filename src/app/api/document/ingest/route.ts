@@ -201,6 +201,43 @@ export async function POST(request: NextRequest): Promise<NextResponse<{ message
     );
   }
 
+  // Confirm collection exists in vector store
+  try {
+    const collectionInfoResponse = await fetch(`${process.env.QDRANT_REST_API}/collections/docochat-collection/exists`);
+    const collectionInfo = await collectionInfoResponse.json();
+
+    if (!collectionInfoResponse.ok) {
+      throw new Error(`Failed to check collection existence in vector store: ${collectionInfo.error || collectionInfoResponse.statusText}`);
+    }
+
+    if (!collectionInfo.exists) {
+      // Create collection if it doesn't exist
+      const createCollectionResponse = await fetch(`${process.env.QDRANT_REST_API}/collections/docochat-collection`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          vectors: {
+            size: 768,
+            distance: "Cosine",
+          },
+        }),
+      });
+
+      const createCollectionResult = await createCollectionResponse.json();
+
+      if (!createCollectionResponse.ok) {
+        throw new Error(`Failed to create collection in vector store: ${createCollectionResult.error || createCollectionResponse.statusText}`);
+      }
+
+      console.log("Collection created in vector store: ", createCollectionResult);
+    } else {
+      console.log("Collection already exists in vector store");
+    }
+  } catch (error) {
+    console.error("Error while checking collection existence in vector store: ", error);
+    return NextResponse.json({ message: "Error while checking collection existence in vector store" }, { status: 500, statusText: "Internal Server Error: Vector Store" });
+  }
+
   //   Push embeddings to vector store
   try {
     const pushToVectorStore = await fetch(`${process.env.QDRANT_REST_API}/collections/docochat-collection/points?wait=true`, {
@@ -210,8 +247,6 @@ export async function POST(request: NextRequest): Promise<NextResponse<{ message
     });
 
     const pushToVectorStoreResponse = await pushToVectorStore.json();
-
-    console.log("pushToVectorStoreResponse", pushToVectorStoreResponse);
 
     if (!pushToVectorStore.ok) {
       throw new Error(`Failed to push embeddings to vector store: ${pushToVectorStoreResponse.error || pushToVectorStore.statusText}`);

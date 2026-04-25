@@ -2,8 +2,9 @@
 
 import { useActionState, useEffect, useRef, useState } from "react";
 
-import { CircuitBoardIcon, Loader2Icon, XIcon } from "lucide-react";
+import { CircuitBoardIcon, Loader2Icon, XIcon, MessageSquare } from "lucide-react";
 import { toast } from "sonner";
+import Link from "next/link";
 
 import trainDocument from "@/components/features/train/actions";
 import { Button } from "@/components/ui/button";
@@ -39,7 +40,7 @@ export default function TrainForm() {
 
     // Confirm file support
     try {
-      const confirmFileSupport: Response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/document/confirm-support`, {
+      const confirmFileSupport: Response = await fetch("/api/document/confirm-support", {
         method: "POST",
         body: formData,
       });
@@ -58,7 +59,6 @@ export default function TrainForm() {
       if (fileInputRef.current) {
         fileInputRef.current.value = "";
       }
-      // console.error("Error while checking file support: ", error);
       toast.error("Error", {
         description: error instanceof Error ? error.message : "Unsupported File",
       });
@@ -106,23 +106,34 @@ export default function TrainForm() {
       {fileSelected !== null ? <PreviewSelectedFile file={fileSelected} /> : <p className="text-sm text-gray-500">No file selected</p>}
 
       {/* Error and Success Messages */}
-      {formState.error && <p className="text-red-500 text-sm mt-2">{formState.error.message}</p>}
-      {formState.success && <p className="text-green-500 text-sm mt-2">{formState.message}</p>}
+      {formState.error && <p className="text-destructive text-sm mt-2 font-medium">{formState.error.message}</p>}
+      {formState.success && <p className="text-emerald-500 text-sm mt-3 text-center">{formState.message}</p>}
 
       {/* Submit Button */}
-      <Button type="submit" disabled={isResponsePending || !fileSelected} className="w-full mt-4">
-        {isResponsePending ? (
-          <>
-            <Loader2Icon className="h-4 w-4 animate-spin" />
-            Traininig AI with your file...
-          </>
-        ) : (
-          <>
-            <CircuitBoardIcon className="h-4 w-4" />
-            Train AI with your file
-          </>
+      <div className="flex flex-col gap-3 mt-4">
+        <Button type="submit" disabled={isResponsePending || !fileSelected} className="w-full transition-all">
+          {isResponsePending ? (
+            <>
+              <Loader2Icon className="mr-2 h-4 w-4 animate-spin" />
+              Training AI with your file...
+            </>
+          ) : (
+            <>
+              <CircuitBoardIcon className="mr-2 h-4 w-4" />
+              Train AI with your file
+            </>
+          )}
+        </Button>
+
+        {formState.success && (
+          <Button asChild variant="outline" className="w-full bg-secondary/50 hover:bg-secondary border-border/40">
+            <Link href="/chat">
+              <MessageSquare className="mr-2 h-4 w-4" />
+              Start Chatting
+            </Link>
+          </Button>
         )}
-      </Button>
+      </div>
     </form>
   );
 }

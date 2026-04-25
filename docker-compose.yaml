@@ -2,14 +2,12 @@ services:
   vector-db:
     image: qdrant/qdrant:latest
     container_name: docochat-qdrant
-    volumes:
-      - docochat_volume:/qdrant/storage
     ports:
       - "6333:6333"
       - "6334:6334"
   app:
     build: .
-    container_name: docochat-app
+    container_name: docochat
     depends_on:
       - vector-db
     ports:
@@ -17,5 +15,6 @@ services:
     environment:
       - NODE_ENV=production
       - QDRANT_REST_API=http://vector-db:6333
-volumes:
-  docochat_volume:
+      - NEXT_SERVER_ACTIONS_ENCRYPTION_KEY=ON1RscdB/xndRfRehuzwiPCWXjyvSX8c2PRXNAYSUrw=
+      - NEXT_PUBLIC_API_URL=http://localhost:3000
+      - OLLAMA_HOST=http://host.docker.internal:11434
